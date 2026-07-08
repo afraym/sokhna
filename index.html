@@ -468,8 +468,8 @@
 
     <!-- Center Hero Content -->
     <div class="container hero-content">
-      <div class="hero-pre-title"><span class="posterama">AlMasa</span> Hotel Alsokhna</div>
-      <h1 class="hero-title-main"><span class="posterama">AlMasa</span> Hotel Alsokhna</h1>
+      <div class="hero-pre-title" id="heroPreTitle"><span class="posterama">AlMasa</span> Hotel ElSokhna</div>
+      <h1 class="hero-title-main" id="heroMainTitle"><span class="posterama">AlMasa</span> Hotel ElSokhna</h1>
     </div>
 
     <!-- Bottom Floating Booking Bar -->
@@ -961,6 +961,28 @@ https://massa.afraym.com/ -->
           referrerPolicy="no-referrer-when-downgrade"></a></div>
   </noscript>
   <!-- End of Statcounter Code -->
+
+  <!-- Daily Rotating Hero Text -->
+  <script>
+    (function () {
+      const heroTexts = [
+        { pre: 'Where the Desert Meets the Sea',      main: 'Awaken to the Red Sea' },
+        { pre: 'A Timeless Escape on the Red Sea',    main: 'Live the <span class="posterama">AlMasa</span> Experience' },
+        { pre: 'Ain Sokhna\'s Finest Retreat',         main: 'Luxury, Redefined.' },
+        { pre: 'Sun. Sea. Serenity.',                  main: 'Your Story Begins at <span class="posterama">AlMasa</span>' },
+        { pre: 'Where Every Moment Feels Like Forever', main: 'Discover <span class="posterama">AlMasa</span> El Sokhna' },
+        { pre: 'The Art of Coastal Living',            main: 'Unmatched Elegance by the Red Sea' }
+      ];
+
+      // Date-based seed: same index all day, changes the next day
+      const today = new Date();
+      const seed  = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+      const index = seed % heroTexts.length;
+
+      document.getElementById('heroPreTitle').innerHTML  = heroTexts[index].pre;
+      document.getElementById('heroMainTitle').innerHTML = heroTexts[index].main;
+    })();
+  </script>
 
 </body>
 
