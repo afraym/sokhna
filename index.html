@@ -66,6 +66,15 @@
       font-family: var(--font-heading);
     }
 
+    		@font-face {
+			font-family: 'Posterama-Bold';
+			src: url('./assets/fonts/posterama-bold.otf');
+		}
+
+		.posterama {
+			font-family: Posterama-Bold;
+		}
+
     .bg-obsidian {
       background-color: var(--dark-obsidian) !important;
     }
@@ -95,7 +104,7 @@
 
     /* Hero Section with Aqua Slide Top Down Background */
     .sokhna-hero {
-      background-image: linear-gradient(rgba(10, 14, 18, 0.45), rgba(10, 14, 18, 0.55)), url('https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?auto=format&fit=crop&w=1920&q=80');
+      background-image: linear-gradient(rgba(10, 14, 18, 0.45), rgba(10, 14, 18, 0.55)), url('/assets/img/promo.jpg');
       background-size: cover;
       background-position: center;
       min-height: 100vh;
@@ -104,6 +113,43 @@
       justify-content: space-between;
       position: relative;
       padding: 30px 0;
+    }
+
+    /* Hero Promo Video (plays on hover) */
+    .hero-promo-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+      pointer-events: none;
+    }
+
+    .sokhna-hero:hover .hero-promo-video {
+      opacity: 1;
+    }
+
+    /* Dark overlay on top of video */
+    .hero-video-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(rgba(10, 14, 18, 0.35), rgba(10, 14, 18, 0.50));
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Ensure all hero content sits above the video */
+    .sokhna-hero > .container,
+    .sokhna-hero > .scroll-mouse {
+      position: relative;
+      z-index: 2;
     }
 
     /* Logo Styling */
@@ -403,6 +449,9 @@
 
   <!-- Fullscreen Hero Section -->
   <header class="sokhna-hero" id="hero">
+    <!-- Hero Promo Video (visible on hover) -->
+    <video class="hero-promo-video" id="heroPromoVideo" src="./assets/video/promo1.mp4" loop muted playsinline preload="auto"></video>
+    <div class="hero-video-overlay"></div>
     <!-- Top Header Bar -->
     <div class="container d-flex justify-content-between align-items-center">
       <!-- Custom Almasa Logo -->
@@ -419,8 +468,8 @@
 
     <!-- Center Hero Content -->
     <div class="container hero-content">
-      <div class="hero-pre-title">Almasa Hotel Alsokhna</div>
-      <h1 class="hero-title-main">Almasa Hotel Alsokhna</h1>
+      <div class="hero-pre-title"><span class="posterama">AlMasa</span> Hotel Alsokhna</div>
+      <h1 class="hero-title-main"><span class="posterama">AlMasa</span> Hotel Alsokhna</h1>
     </div>
 
     <!-- Bottom Floating Booking Bar -->
@@ -487,7 +536,7 @@
   <div class="offcanvas offcanvas-end offcanvas-menu text-white" tabindex="-1" id="menuOffcanvas"
     aria-labelledby="menuOffcanvasLabel">
     <div class="offcanvas-header border-bottom border-secondary py-4">
-      <h5 class="offcanvas-title font-heading text-teal font-weight-bold" id="menuOffcanvasLabel">ALMASA RESORT</h5>
+      <h5 class="offcanvas-title font-heading text-teal font-weight-bold" id="menuOffcanvasLabel"><span class="posterama">AlMasa</span> RESORT</h5>
       <button type="button" class="btn-close btn-close-white text-reset" data-bs-dismiss="offcanvas"
         aria-label="Close"></button>
     </div>
@@ -514,7 +563,7 @@
           <span class="badge badge-teal px-3 py-2 mb-3">Red Sea Haven</span>
           <h2 class="font-weight-bolder mb-4 section-title section-title-left text-dark">Where Golden Desert Hills Meet
             Crystal Blue Waves</h2>
-          <p class="text-secondary lead mb-4">Almasa Hotel El Sokhna offers the ultimate luxury beachfront getaway,
+          <p class="text-secondary lead mb-4"><span class="posterama">AlMasa</span> Hotel El Sokhna offers the ultimate luxury beachfront getaway,
             situated along the premium Red Sea coast of Ain Sokhna. Only an hour's drive from Cairo, our resort offers a
             serene microclimate, year-round sun, and pristine sandy shores.</p>
           <p class="text-secondary mb-4">Our property combines the highest luxury standards with world-class family
@@ -540,7 +589,7 @@
         <div class="col-lg-6 px-lg-5">
           <div class="position-relative">
             <div class="blur-shadow-image">
-              <img src="./assets/img/hotel_dar_al_fayzeen.png" alt="Almasa Sokhna Resort"
+              <img src="./assets/img/coast.jpg" alt="Almasa Sokhna Resort"
                 class="img-fluid border-radius-xl shadow-lg hover-scale">
             </div>
           </div>
@@ -557,7 +606,7 @@
           <span class="badge badge-teal px-3 py-2 mb-3">Family Thrills</span>
           <h2 class="text-white font-weight-bolder mb-4 section-title section-title-left">The Largest Aqua Park Slide
             Complex in Sokhna</h2>
-          <p class="text-muted lead mb-4">Dive into absolute excitement! Almasa El Sokhna features a grand on-site water
+          <p class="text-muted lead mb-4">Dive into absolute excitement! <span class="posterama">AlMasa</span> El Sokhna features a grand on-site water
             park with massive multi-loop slides, family raft rivers, child splash zones, and temperature-controlled wave
             pools.</p>
           <p class="text-muted mb-4">Designed for safety and maximum fun, our park features dedicated certified
@@ -567,7 +616,7 @@
 
         <div class="col-lg-6 order-lg-1">
           <div class="blur-shadow-image">
-            <img src="./assets/img/hero_hotel.png" alt="Sokhna Aqua Park"
+            <img src="./assets/img/pool2.jpg" alt="Sokhna Aqua Park"
               class="img-fluid border-radius-xl shadow-lg hover-scale"
               style="height: 400px; width: 100%; object-fit: cover;">
           </div>
@@ -777,23 +826,24 @@
             <a href="#" class="logo-container me-2">
               <div class="logo-diamond text-sm"><i class="far fa-gem"></i></div>
             </a>
-            <h5 class="text-white mb-0 font-heading font-weight-bold tracking-wide">ALMASA SOKHNA</h5>
+            <h5 class="text-white mb-0 font-heading font-weight-bold tracking-wide"><span class="posterama">AlMasa</span> SOKHNA</h5>
           </div>
           <p class="text-muted text-xs mt-3 mb-0">Luxury beachfront resort chalets, seafood restaurants, and Egypt's
             largest water park slides.</p>
         </div>
         <div class="col-lg-4 text-center mb-4 mb-lg-0">
           <p class="text-muted text-sm mb-0">©
-            <script>document.write(new Date().getFullYear())</script> Almasa Hotels Egypt. All rights reserved.
+            <script>document.write(new Date().getFullYear())</script> <span class="posterama">AlMasa</span> Hotels Egypt. All rights reserved.
           </p>
         </div>
         <div class="col-lg-4 text-center text-lg-end">
-          <a href="https://www.instagram.com/almasahotelnasrcity/" class="btn btn-icon-only btn-outline-teal rounded-circle mx-1"><i
+          <a href="https://www.instagram.com/almasahotelnasrcity/" target="_blank" class="btn btn-icon-only btn-outline-teal rounded-circle mx-1"><i
               class="fab fa-facebook-f"></i></a>
 
-          <a href="https://www.instagram.com/almasahotel.elsokhna/" class="btn btn-icon-only btn-outline-teal rounded-circle mx-1"><i
+          <a href="https://www.instagram.com/almasahotel.elsokhna/" target="_blank" class="btn btn-icon-only btn-outline-teal rounded-circle mx-1"><i
               class="fab fa-instagram"></i></a>
-                        <a href="https://www.linkedin.com/company/almasahotels/" class="btn btn-icon-only btn-outline-teal rounded-circle mx-1"><i class="fab fa-linkedin"></i></a>
+              <a href="https://www.threads.com/@almasahotel.elsokhna" target="_blank" rel="noopener noreferrer" class="btn btn-icon-only btn-outline-teal rounded-circle mx-1"><i class="fa-brands fa-threads"></i></a>
+          <a href="https://www.linkedin.com/company/almasahotels/" class="btn btn-icon-only btn-outline-teal rounded-circle mx-1"><i class="fab fa-linkedin"></i></a>
         </div>
       </div>
     </div>
@@ -810,7 +860,7 @@
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body py-3">
-          <p id="sokhnaSuccessMessage" class="text-muted text-sm mb-0">Thank you! Your Almasa Hotel El Sokhna request
+          <p id="sokhnaSuccessMessage" class="text-muted text-sm mb-0">Thank you! Your <span class="posterama">AlMasa</span> Hotel El Sokhna request
             has been submitted successfully. Our resort reservations supervisor will call you within 15 minutes.</p>
         </div>
         <div class="modal-footer border-0 pt-0 shadow-none">
@@ -860,7 +910,7 @@
       const adults = document.getElementById("adults-val").innerText;
       const children = document.getElementById("children-val").innerText;
 
-      const msg = `Excellent choice! Your check for availability at **Almasa Hotel El Sokhna** for dates: **${dateRange}** (${adults} Adults, ${children} Children) is being processed. Our resort reservation supervisor will contact you shortly with chalet pricing and exclusive package offers.`;
+      const msg = `Excellent choice! Your check for availability at **<span class="posterama">AlMasa</span> Hotel El Sokhna** for dates: **${dateRange}** (${adults} Adults, ${children} Children) is being processed. Our resort reservation supervisor will contact you shortly with chalet pricing and exclusive package offers.`;
 
       document.getElementById("sokhnaSuccessMessage").innerHTML = msg;
 
@@ -872,7 +922,7 @@
     function handleInquirySubmit(event) {
       event.preventDefault();
 
-      const msg = `Thank you for contacting Almasa Hotel El Sokhna. Your custom inquiry has been successfully registered. A resort booking specialist will reach out to your phone number and email address within 15 minutes.`;
+      const msg = `Thank you for contacting <span class="posterama">AlMasa</span> Hotel El Sokhna. Your custom inquiry has been successfully registered. A resort booking specialist will reach out to your phone number and email address within 15 minutes.`;
 
       document.getElementById("sokhnaSuccessMessage").innerHTML = msg;
       document.getElementById("sokhna-inquiry-form").reset();
@@ -880,6 +930,21 @@
       const myModal = new bootstrap.Modal(document.getElementById('sokhnaSuccessModal'));
       myModal.show();
     }
+
+    // Hero video hover play/pause
+    (function() {
+      const hero = document.getElementById('hero');
+      const video = document.getElementById('heroPromoVideo');
+      if (hero && video) {
+        hero.addEventListener('mouseenter', function() {
+          video.play();
+        });
+        hero.addEventListener('mouseleave', function() {
+          video.pause();
+          video.currentTime = 0;
+        });
+      }
+    })();
   </script>
 
   <!-- Default Statcounter code for Massa
