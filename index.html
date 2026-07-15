@@ -442,6 +442,109 @@
       color: #ffffff !important;
       border-color: transparent !important;
     }
+
+    #waves .blur-shadow-image img {
+      transition: opacity 0.3s ease;
+    }
+
+    #waves.waves-video-playing .blur-shadow-image img {
+      opacity: 0;
+    }
+
+    /* Desktop waves section: cap media height so the block does not feel too tall */
+    @media (min-width: 992px) {
+      #waves {
+        align-items: center !important;
+      }
+
+      #waves>.col-lg-6.px-lg-5 {
+        display: flex;
+        align-items: center;
+      }
+
+      #waves>.col-lg-6.px-lg-5 .position-relative,
+      #waves>.col-lg-6.px-lg-5 .blur-shadow-image,
+      #waves>.col-lg-6.px-lg-5 .blur-shadow-image>div {
+        width: 100%;
+        height: clamp(720px, 94vw, 520px);
+      }
+
+      #waves>.col-lg-6.px-lg-5 img,
+      #waves>.col-lg-6.px-lg-5 video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    /* Mobile waves section: use image + video as section background */
+    @media (max-width: 991.98px) {
+      #waves {
+        position: relative;
+        overflow: hidden;
+        border-radius: 1rem;
+        padding: 1.5rem 1rem;
+      }
+
+      #waves::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(10, 14, 18, 0.14), rgba(10, 14, 18, 0.34));
+        z-index: 1;
+      }
+
+      #waves>.col-lg-6.px-lg-5 {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        max-width: none;
+        padding: 0 !important;
+        margin: 0;
+        z-index: 0;
+      }
+
+      #waves>.col-lg-6.px-lg-5 .blur-shadow-image,
+      #waves>.col-lg-6.px-lg-5 .position-relative,
+      #waves>.col-lg-6.px-lg-5 .blur-shadow-image>div {
+        width: 100%;
+        height: 100%;
+      }
+
+      #waves>.col-lg-6.px-lg-5 img,
+      #waves>.col-lg-6.px-lg-5 video {
+        position: absolute !important;
+        inset: 0;
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+      }
+
+      #wavesVideo {
+        opacity: 0.9 !important;
+      }
+
+      #waves>.col-lg-6.mb-5.mb-lg-0,
+      #waves>.col-lg-6.mb-5.mb-lg-0 * {
+        position: relative;
+        z-index: 2;
+      }
+
+      #waves .text-dark,
+      #waves .text-secondary,
+      #waves .section-title {
+        color: #ffffff !important;
+        text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
+      }
+
+      #waves .badge-teal {
+        background-color: rgba(0, 162, 199, 0.22) !important;
+        color: #d8f6ff !important;
+        border-color: rgba(0, 162, 199, 0.45);
+      }
+    }
   </style>
 </head>
 
@@ -560,7 +663,7 @@
   <!-- About Sokhna Experience -->
   <section id="about" class="py-7 bg-white">
     <div class="container">
-      <div class="row align-items-center"
+      <div class="row align-items-center" id="waves"
         onmouseenter="let v=this.querySelector('video'); if(v){ v.style.opacity='1'; v.play(); }"
         onmouseleave="let v=this.querySelector('video'); if(v){ v.pause(); v.style.opacity='0'; }">
         <div class="col-lg-6 mb-5 mb-lg-0">
@@ -599,7 +702,8 @@
               <div style="position: relative;">
                 <img src="./assets/img/waves.jpg" alt="Almasa Sokhna Resort"
                   class="img-fluid border-radius-xl shadow-lg hover-scale" style="width: 100%; display: block;">
-                <video src="./assets/video/waves.mp4" preload="none" muted loop playsinline
+                <video id="wavesVideo" src="./assets/video/waves.mp4" data-idm-ignore="true" loop muted playsinline
+      preload="auto"
                   class="img-fluid border-radius-xl shadow-lg hover-scale"
                   style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.3s; pointer-events: none;"></video>
               </div>
@@ -857,7 +961,7 @@
           </p>
         </div>
         <div class="col-lg-4 text-center text-lg-end">
-          <a href="https://www.instagram.com/almasahotelnasrcity/" target="_blank"
+          <a href="https://www.facebook.com/AlmasaHotel.Elsokhna" target="_blank"
             class="btn btn-icon-only btn-outline-teal rounded-circle mx-1"><i class="fab fa-facebook-f"></i></a>
 
           <a href="https://www.instagram.com/almasahotel.elsokhna/" target="_blank"
@@ -969,6 +1073,65 @@
           video.pause();
           video.currentTime = 0;
         });
+      }
+    })();
+    (function () {
+      const hero = document.getElementById('waves');
+      const video = document.getElementById('wavesVideo');
+      if (hero && video) {
+        const setPlayingState = function (isPlaying) {
+          hero.classList.toggle('waves-video-playing', isPlaying);
+        };
+
+        video.addEventListener('play', function () {
+          setPlayingState(true);
+        });
+
+        video.addEventListener('pause', function () {
+          setPlayingState(false);
+        });
+
+        video.addEventListener('ended', function () {
+          setPlayingState(false);
+        });
+
+        setPlayingState(!video.paused && !video.ended);
+
+        hero.addEventListener('mouseenter', function () {
+          video.play();
+        });
+        hero.addEventListener('mouseleave', function () {
+          video.pause();
+          video.currentTime = 0;
+        });
+      }
+    })();
+
+    // Keep waves background video playing on mobile where hover is not available.
+    (function () {
+      const video = document.getElementById('wavesVideo');
+      if (!video) return;
+
+      const mobileMq = window.matchMedia('(max-width: 991.98px)');
+
+      const syncWavesVideoState = function () {
+        if (mobileMq.matches) {
+          const playPromise = video.play();
+          if (playPromise && typeof playPromise.catch === 'function') {
+            playPromise.catch(function () { });
+          }
+        } else {
+          video.pause();
+          video.currentTime = 0;
+        }
+      };
+
+      syncWavesVideoState();
+
+      if (typeof mobileMq.addEventListener === 'function') {
+        mobileMq.addEventListener('change', syncWavesVideoState);
+      } else if (typeof mobileMq.addListener === 'function') {
+        mobileMq.addListener(syncWavesVideoState);
       }
     })();
   </script>
