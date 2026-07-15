@@ -1,0 +1,3 @@
+AddType video/mp4 .mp4
+AddType video/mp4 .m4v
+AddType audio/mp4 .m4a
