@@ -54,6 +54,13 @@
       font-family: var(--font-body);
       color: #333333;
       background-color: var(--light-cream);
+      position: relative;
+      overflow-x: hidden;
+      isolation: isolate;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     h1,
@@ -64,6 +71,40 @@
     h6,
     .font-heading {
       font-family: var(--font-heading);
+    }
+
+    section {
+      scroll-margin-top: 96px;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: -10vh -10vw auto auto;
+      width: 46vw;
+      height: 46vw;
+      max-width: 760px;
+      max-height: 760px;
+      background: radial-gradient(circle, rgba(0, 162, 199, 0.18) 0%, rgba(0, 162, 199, 0.08) 34%, transparent 70%);
+      filter: blur(10px);
+      opacity: 0.9;
+      animation: floatDrift 18s ease-in-out infinite alternate;
+      pointer-events: none;
+      z-index: -2;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+      background-size: 28px 28px;
+      opacity: 0.22;
+      pointer-events: none;
+      z-index: -3;
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.65), transparent 68%);
+      -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.65), transparent 68%);
     }
 
     @font-face {
@@ -81,6 +122,37 @@
 
     .bg-dark-card {
       background-color: var(--dark-card) !important;
+    }
+
+    .reveal-on-scroll {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.75s ease, transform 0.75s ease, filter 0.75s ease;
+      filter: blur(8px);
+    }
+
+    .reveal-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
+
+    .interactive-surface {
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+      will-change: transform;
+    }
+
+    .interactive-surface:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 40px rgba(10, 14, 18, 0.16);
+    }
+
+    .interactive-surface:focus-within {
+      transform: translateY(-3px);
+    }
+
+    .pulse-on-change {
+      animation: valuePulse 0.35s ease;
     }
 
     .text-teal {
@@ -102,6 +174,23 @@
       box-shadow: 0 10px 30px rgba(0, 162, 199, 0.2);
     }
 
+    .hero-content,
+    .booking-bar,
+    .scroll-mouse {
+      position: relative;
+      z-index: 2;
+    }
+
+    .booking-bar:hover,
+    .booking-bar:focus-within {
+      transform: translateY(-4px);
+      box-shadow: 0 22px 45px rgba(0, 0, 0, 0.34);
+    }
+
+    .booking-bar {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
     /* Hero Section with Aqua Slide Top Down Background */
     .sokhna-hero {
       background-image: linear-gradient(rgba(10, 14, 18, 0.45), rgba(10, 14, 18, 0.55)), url('/assets/img/promo.jpg');
@@ -112,7 +201,19 @@
       flex-direction: column;
       justify-content: space-between;
       position: relative;
+      isolation: isolate;
       padding: 30px 0;
+    }
+
+    .sokhna-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at var(--hero-glow-x, 50%) var(--hero-glow-y, 40%), rgba(0, 162, 199, 0.24), transparent 30%),
+        radial-gradient(circle at 20% 18%, rgba(255, 255, 255, 0.11), transparent 28%);
+      pointer-events: none;
+      z-index: 1;
     }
 
     /* Hero Promo Video (plays on hover) */
@@ -329,6 +430,18 @@
       color: #333333;
     }
 
+    .booking-input-val:focus {
+      color: var(--sokhna-teal-dark);
+    }
+
+    .booking-label,
+    .booking-input-wrapper,
+    .booking-input-val,
+    .counter-btn,
+    .counter-val {
+      transition: color 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
+    }
+
     .btn-search {
       background-color: var(--sokhna-teal-dark) !important;
       background-image: var(--sokhna-teal-gradient) !important;
@@ -372,6 +485,48 @@
       animation: scroll-wheel 1.5s infinite;
     }
 
+    .scroll-top-btn {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      width: 52px;
+      height: 52px;
+      border: none;
+      border-radius: 50%;
+      background: var(--sokhna-teal-gradient);
+      color: #ffffff;
+      box-shadow: 0 16px 34px rgba(0, 162, 199, 0.28);
+      display: grid;
+      place-items: center;
+      opacity: 0;
+      transform: translateY(18px) scale(0.92);
+      pointer-events: none;
+      transition: opacity 0.28s ease, transform 0.28s ease, box-shadow 0.28s ease;
+      z-index: 1050;
+    }
+
+    .scroll-top-btn.is-visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    .scroll-top-btn:hover {
+      box-shadow: 0 20px 40px rgba(0, 162, 199, 0.45);
+      transform: translateY(-3px) scale(1.03);
+    }
+
+    .offcanvas-link.active {
+      color: var(--sokhna-teal);
+      padding-left: 8px;
+    }
+
+    .offcanvas-link.active::before {
+      content: '•';
+      margin-right: 10px;
+      color: var(--sokhna-teal);
+    }
+
     .icon-shape i{
       top: 0;
     }
@@ -385,6 +540,31 @@
       100% {
         transform: translateY(10px);
         opacity: 0;
+      }
+    }
+
+    @keyframes floatDrift {
+      from {
+        transform: translate3d(-2%, -1%, 0) scale(1);
+      }
+
+      to {
+        transform: translate3d(2%, 3%, 0) scale(1.05);
+      }
+    }
+
+    @keyframes valuePulse {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.18);
+        color: var(--sokhna-teal);
+      }
+
+      100% {
+        transform: scale(1);
       }
     }
 
@@ -470,7 +650,7 @@
       #waves>.col-lg-6.px-lg-5 .blur-shadow-image,
       #waves>.col-lg-6.px-lg-5 .blur-shadow-image>div {
         width: 100%;
-        height: clamp(720px, 94vw, 520px);
+        height: clamp(520px, 62vw, 720px);
       }
 
       #waves>.col-lg-6.px-lg-5 img,
@@ -553,6 +733,9 @@
 </head>
 
 <body>
+  <button type="button" class="scroll-top-btn" id="scrollTopBtn" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
 
   <!-- Fullscreen Hero Section -->
   <header class="sokhna-hero" id="hero">
@@ -1023,7 +1206,127 @@
       const checkoutStr = checkoutDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
       document.getElementById("checkin-out-dates").value = `${checkinStr} - ${checkoutStr}`;
+
+      initVibrantInteractions();
     });
+
+    function initVibrantInteractions() {
+      const revealSelectors = [
+        '.hero-content',
+        '.booking-bar',
+        '#about .col-lg-6',
+        '#experiences .col-lg-6',
+        '#dining .card',
+        '#chalets .card',
+        '#contact .col-lg-5',
+        '#contact .card',
+        'footer .row > div'
+      ];
+
+      const revealTargets = Array.from(new Set(
+        revealSelectors.flatMap(function (selector) {
+          return Array.from(document.querySelectorAll(selector));
+        })
+      ));
+
+      revealTargets.forEach(function (element) {
+        element.classList.add('reveal-on-scroll');
+
+        if (element.matches('.hero-content, .booking-bar')) {
+          element.classList.add('is-visible');
+        }
+      });
+
+      const observer = 'IntersectionObserver' in window ? new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.18,
+        rootMargin: '0px 0px -8% 0px'
+      }) : null;
+
+      if (observer) {
+        revealTargets.forEach(function (element) {
+          if (!element.classList.contains('is-visible')) {
+            observer.observe(element);
+          }
+        });
+      } else {
+        revealTargets.forEach(function (element) {
+          element.classList.add('is-visible');
+        });
+      }
+
+      document.querySelectorAll('.card, .booking-bar, .offcanvas-menu, .logo-container').forEach(function (element) {
+        element.classList.add('interactive-surface');
+      });
+
+      const scrollTopButton = document.getElementById('scrollTopBtn');
+      const syncScrollTopButton = function () {
+        if (!scrollTopButton) {
+          return;
+        }
+
+        scrollTopButton.classList.toggle('is-visible', window.scrollY > 700);
+      };
+
+      syncScrollTopButton();
+      window.addEventListener('scroll', syncScrollTopButton, { passive: true });
+
+      if (scrollTopButton) {
+        scrollTopButton.addEventListener('click', function () {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+
+      const navLinks = Array.from(document.querySelectorAll('.offcanvas-link[href^="#"]'));
+      const sections = navLinks.map(function (link) {
+        return document.querySelector(link.getAttribute('href'));
+      }).filter(Boolean);
+
+      const syncActiveSection = function () {
+        const currentY = window.scrollY + 140;
+        let activeId = 'hero';
+
+        sections.forEach(function (section) {
+          if (currentY >= section.offsetTop) {
+            activeId = section.id;
+          }
+        });
+
+        navLinks.forEach(function (link) {
+          link.classList.toggle('active', link.getAttribute('href') === `#${activeId}`);
+        });
+      };
+
+      syncActiveSection();
+      window.addEventListener('scroll', syncActiveSection, { passive: true });
+
+      const hero = document.getElementById('hero');
+      if (hero) {
+        hero.style.setProperty('--hero-glow-x', '50%');
+        hero.style.setProperty('--hero-glow-y', '50%');
+
+        const updateHeroGlow = function (event) {
+          const rect = hero.getBoundingClientRect();
+          const x = ((event.clientX - rect.left) / rect.width) * 100;
+          const y = ((event.clientY - rect.top) / rect.height) * 100;
+
+          hero.style.setProperty('--hero-glow-x', `${Math.max(0, Math.min(100, x))}%`);
+          hero.style.setProperty('--hero-glow-y', `${Math.max(0, Math.min(100, y))}%`);
+        };
+
+        hero.addEventListener('mousemove', updateHeroGlow);
+        hero.addEventListener('mouseleave', function () {
+          hero.style.setProperty('--hero-glow-x', '50%');
+          hero.style.setProperty('--hero-glow-y', '50%');
+        });
+      }
+    }
 
     // Update Counter values (Adults/Children)
     function updateCounter(type, change) {
@@ -1034,7 +1337,14 @@
         if (type === 'adults' && val < 1) val = 1; // At least 1 adult
         if (type === 'children' && val < 0) val = 0; // At least 0 children
         countLabel.innerText = val;
+        pulseCounter(countLabel);
       }
+    }
+
+    function pulseCounter(element) {
+      element.classList.remove('pulse-on-change');
+      void element.offsetWidth;
+      element.classList.add('pulse-on-change');
     }
 
     // Handle Search submit
