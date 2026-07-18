@@ -53,7 +53,10 @@
     body {
       font-family: var(--font-body);
       color: #333333;
-      background-color: var(--light-cream);
+      background:
+        radial-gradient(circle at top left, rgba(0, 162, 199, 0.10), transparent 36%),
+        radial-gradient(circle at bottom right, rgba(19, 25, 33, 0.08), transparent 32%),
+        linear-gradient(180deg, #f8fbfd 0%, #edf4f7 48%, #f5f8fa 100%);
       position: relative;
       overflow-x: hidden;
       isolation: isolate;
@@ -76,6 +79,12 @@
     section {
       scroll-margin-top: 96px;
       position: relative;
+      overflow: hidden;
+    }
+
+    section:not(.sokhna-hero) {
+      padding-top: 5.75rem !important;
+      padding-bottom: 5.75rem !important;
     }
 
     body::before {
@@ -117,11 +126,15 @@
     }
 
     .bg-obsidian {
-      background-color: var(--dark-obsidian) !important;
+      background:
+        radial-gradient(circle at top right, rgba(0, 162, 199, 0.10), transparent 34%),
+        linear-gradient(180deg, #071015 0%, #0a0e12 100%) !important;
     }
 
     .bg-dark-card {
-      background-color: var(--dark-card) !important;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02)),
+        var(--dark-card) !important;
     }
 
     .reveal-on-scroll {
@@ -172,6 +185,26 @@
     .border-teal-glow:hover {
       border-color: var(--sokhna-teal) !important;
       box-shadow: 0 10px 30px rgba(0, 162, 199, 0.2);
+    }
+
+    .section-title {
+      position: relative;
+      letter-spacing: -0.02em;
+      line-height: 1.08;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 84px;
+      height: 4px;
+      margin-top: 16px;
+      border-radius: 999px;
+      background: var(--sokhna-teal-gradient);
+    }
+
+    .section-title.section-title-left::after {
+      margin-left: 0;
     }
 
     .hero-content,
@@ -338,10 +371,13 @@
 
     /* Booking Bar */
     .booking-bar {
-      background: #ffffff;
-      border-radius: 12px;
-      padding: 10px 15px;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+      background: rgba(255, 255, 255, 0.84);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: 22px;
+      padding: 14px 18px;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.16);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
       max-width: 950px;
       width: 90%;
       margin: 0 auto;
@@ -374,8 +410,9 @@
       font-size: 0.75rem;
       text-transform: uppercase;
       font-weight: 600;
-      color: #777777;
+      color: #64748b;
       margin-bottom: 5px;
+      letter-spacing: 0.08em;
     }
 
     .booking-input-wrapper {
@@ -392,7 +429,7 @@
     .booking-input-val {
       font-size: 0.95rem;
       font-weight: 600;
-      color: #333333;
+      color: #0f172a;
       background: transparent;
       border: none;
       width: 100%;
@@ -404,16 +441,17 @@
       width: 28px;
       height: 28px;
       border-radius: 50%;
-      border: 1px solid #cccccc;
-      background: #ffffff;
+      border: 1px solid rgba(100, 116, 139, 0.24);
+      background: rgba(255, 255, 255, 0.9);
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 700;
-      color: #555555;
+      color: #334155;
       cursor: pointer;
       transition: all 0.2s ease;
       outline: none;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
     }
 
     .counter-btn:hover {
@@ -427,7 +465,7 @@
       font-weight: 600;
       width: 25px;
       text-align: center;
-      color: #333333;
+      color: #0f172a;
     }
 
     .booking-input-val:focus {
@@ -444,20 +482,43 @@
 
     .btn-search {
       background-color: var(--sokhna-teal-dark) !important;
-      background-image: var(--sokhna-teal-gradient) !important;
+      background-image: linear-gradient(135deg, #10b5d8 0%, #0a839e 100%) !important;
       color: #ffffff !important;
       font-weight: 700;
       border: none;
-      border-radius: 8px;
-      padding: 14px 28px;
+      border-radius: 999px;
+      padding: 14px 20px;
       width: 100%;
+      min-height: 58px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
       transition: all 0.3s ease;
-      box-shadow: 0 4px 12px rgba(0, 162, 199, 0.3);
+      box-shadow: 0 12px 28px rgba(0, 162, 199, 0.28);
     }
 
     .btn-search:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(0, 162, 199, 0.5);
+      transform: translateY(-3px);
+      box-shadow: 0 16px 34px rgba(0, 162, 199, 0.42);
+    }
+
+    .btn-search:focus-visible,
+    .btn-outline-teal:focus-visible,
+    .offcanvas-link:focus-visible,
+    .scroll-top-btn:focus-visible {
+      outline: 3px solid rgba(0, 162, 199, 0.28);
+      outline-offset: 3px;
+    }
+
+    .booking-search-col {
+      display: flex;
+      align-items: stretch;
+    }
+
+    .booking-search-col .btn-search {
+      align-self: stretch;
+      white-space: nowrap;
     }
 
     /* Scroll Mouse Indicator */
@@ -594,9 +655,11 @@
 
     /* Event offcanvas navigation styling */
     .offcanvas-menu {
-      background: var(--dark-obsidian);
-      border-left: 1px solid rgba(0, 162, 199, 0.3);
+      background: linear-gradient(180deg, rgba(7, 16, 21, 0.96), rgba(10, 14, 18, 0.98));
+      border-left: 1px solid rgba(0, 162, 199, 0.22);
       width: 320px !important;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
     }
 
     .offcanvas-link {
@@ -607,6 +670,7 @@
       display: block;
       margin-bottom: 20px;
       text-decoration: none;
+      opacity: 0.92;
     }
 
     .offcanvas-link:hover {
@@ -617,14 +681,99 @@
     .btn-outline-teal {
       border: 2px solid var(--sokhna-teal) !important;
       color: var(--sokhna-teal) !important;
-      background: transparent !important;
+      background: rgba(0, 162, 199, 0.04) !important;
       font-weight: 700;
+      border-radius: 999px;
+      transition: all 0.3s ease;
     }
 
     .btn-outline-teal:hover {
       background: var(--sokhna-teal-gradient) !important;
       color: #ffffff !important;
       border-color: transparent !important;
+      box-shadow: 0 14px 28px rgba(0, 162, 199, 0.25);
+    }
+
+    .badge-teal {
+      background: rgba(0, 162, 199, 0.10) !important;
+      color: var(--sokhna-teal) !important;
+      border: 1px solid rgba(0, 162, 199, 0.24);
+      border-radius: 999px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+      box-shadow: 0 10px 24px rgba(0, 162, 199, 0.06);
+    }
+
+    .card {
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      border-radius: 22px !important;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.10);
+      overflow: hidden;
+      background-clip: padding-box;
+    }
+
+    .card-body,
+    .card-img-top {
+      transition: transform 0.35s ease, filter 0.35s ease, opacity 0.35s ease;
+    }
+
+    .card:hover .card-img-top {
+      transform: scale(1.03);
+      filter: saturate(1.08);
+    }
+
+    .blur-shadow-image img,
+    .blur-shadow-image video {
+      border-radius: 24px !important;
+      box-shadow: 0 24px 50px rgba(15, 23, 42, 0.18) !important;
+    }
+
+    .form-control {
+      border-radius: 14px;
+      border-color: rgba(148, 163, 184, 0.22);
+      background-color: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .form-control:focus {
+      border-color: rgba(0, 162, 199, 0.55);
+      box-shadow: 0 0 0 4px rgba(0, 162, 199, 0.12);
+    }
+
+    .modal-content {
+      border-radius: 24px;
+      border: 1px solid rgba(0, 162, 199, 0.22) !important;
+      box-shadow: 0 28px 60px rgba(15, 23, 42, 0.26);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    footer {
+      position: relative;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 26%);
+      pointer-events: none;
+    }
+
+    footer .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-links a {
+      transition: transform 0.25s ease, color 0.25s ease, opacity 0.25s ease;
+    }
+
+    .footer-links a:hover {
+      transform: translateX(4px);
+      opacity: 1;
     }
 
     #waves .blur-shadow-image img {
@@ -1142,6 +1291,16 @@
             largest water park slides.</p>
         </div>
         <div class="col-lg-4 text-center mb-4 mb-lg-0">
+          <div class="footer-links mt-3 d-flex flex-column gap-2 align-items-center align-items-lg-start">
+            <a href="https://almasahotels.afraym.com" target="_blank" rel="noopener noreferrer"
+              class="text-teal text-sm font-weight-bold text-decoration-none">
+              Main AlMasa Website
+            </a>
+            <a href="https://nasrcity.afraym.com" target="_blank" rel="noopener noreferrer"
+              class="text-teal text-sm font-weight-bold text-decoration-none">
+              AlMasa Nasr City
+            </a>
+          </div>
           <p class="text-muted text-sm mb-0">©
             <script>document.write(new Date().getFullYear())</script> <span class="posterama">AlMasa</span> Hotels
             Egypt. All rights reserved.
